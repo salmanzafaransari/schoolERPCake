@@ -28,15 +28,36 @@
         $this->set(compact('classes'));
         $this->render('Class/add_class');
     }
-    public function loadAllClass(){
+    public function deleteClass($id = null) {
         $this->loadModel('Classlist');
-        // Fetch all classes from the Classlist model
-        // debug($classes);
+        $this->request->allowMethod(['post', 'delete']);
+    
+        $class = $this->Classlist->get($id);
+    
+        if ($this->Classlist->delete($class)) { 
+            $this->Flash->success(__('The class has been deleted.'));
+        } else {
+            $this->Flash->error(__('The class could not be deleted. Please, try again.'));
+        }
+    
+        return $this->redirect(['action' => 'addClass']); // Redirect to the class list page
     }
+    
     
      
      public function addStudent(){
-      
+        $this->loadModel('Classlist');
+        $classes = $this->Classlist->find('list', [
+            'keyField' => 'id',
+            'valueField' => function ($row) {
+                $value = $row['class_name'];
+                if (!empty($row['section'])) {
+                    $value .= ' - ' . $row['section'];
+                }
+                return $value;
+            }
+        ]);
+        $this->set(compact('classes'));
      }
 
     }

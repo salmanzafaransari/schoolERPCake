@@ -53,18 +53,26 @@
                     <table class="table display data-table text-nowrap">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Class Name</th>
                                 <th style="text-align:center;">Section</th>
                                 <th style="text-align:center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($classes as $class): ?>
+                            <?php 
+                            $count =1; 
+                            foreach ($classes as $class): ?>
                                 <tr>
+                                    <td><?php  echo $count++; ?></td> 
                                     <td><?php echo h($class->class_name); ?></td> 
                                     <td align="center"><?php echo h($class->section); ?></td>
                                     <td align="center">
-                                        <button class="btn btn-lg btn-danger">Delete</button>
+                                    <?= $this->Form->postLink(
+                                        __('Delete'),
+                                        ['action' => 'deleteClass', $class->id],
+                                        ['confirm' => __('Are you sure you want to delete Class {0} ?', $class->class_name), 'class' => 'btn btn-lg btn-danger']
+                                    ) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
