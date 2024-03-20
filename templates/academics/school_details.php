@@ -42,10 +42,10 @@
                              <div class="modal-body">
                              <?= $this->Form->create(null, ['class' => 'new-added-form']) ?>
                     <div class="row">
-                        <div class="col-xl-6 form-group">
+                        <div class="col-xl-12 form-group">
                             <?= $this->Form->control('class_name', ['label' => 'Class Name', 'class' => 'form-control']) ?>
                         </div>
-                        <div class="col-xl-6 form-group">
+                        <div class="col-xl-12 form-group">
                             <?= $this->Form->control('section', ['label' => 'Section', 'class' => 'select2', 'options' => ['' => 'Please Select', 'A' => 'A', 'B' => 'B', 'C' => 'C']]) ?>
                         </div>
                         <div class="col-12 form-group mg-t-10">
