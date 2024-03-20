@@ -40,18 +40,31 @@
                                  </button>
                              </div>
                              <div class="modal-body">
-                                 <h3 class="font-semibold">You are seeing Large Modal</h3>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur,
-                                     assumenda aut eaque eius error, eum expedita iusto nobis obcaecati,
-                                     perspiciatis quae quos saepe similique! Iure non perspiciatis qui
-                                     veniam vitae!
-                                 </p>
+                             <?= $this->Form->create(null, ['class' => 'new-added-form']) ?>
+                    <div class="row">
+                        <div class="col-xl-6 form-group">
+                            <?= $this->Form->control('class_name', ['label' => 'Class Name', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                            <?= $this->Form->control('section', ['label' => 'Section', 'class' => 'select2', 'options' => ['' => 'Please Select', 'A' => 'A', 'B' => 'B', 'C' => 'C']]) ?>
+                        </div>
+                        <div class="col-12 form-group mg-t-10">
+                            <?= $this->Form->button('Submit', ['class' => 'btn-fill-lg btn-gradient-yellow btn-hover-bluedark']) ?>
+                        </div>
+                    </div>
+                <?= $this->Form->end() ?>
                              </div>
-                             <div class="modal-footer">
-                                 <button type="button" class="footer-btn bg-dark-low"
-                                     data-dismiss="modal">Close</button>
-                                 <button type="button" class="footer-btn bg-linkedin">Save
-                                     Changes</button>
+                             <div class="modal-footer d-flex">
+                                 <div class="col-6">
+                                    <button type="button" class="footer-btn bg-linkedin">Save
+                                        Changes</button>
+
+                                </div>
+                                <div class="col-6 d-flex pull-right">
+
+                                    <button type="button" class="footer-btn bg-dark-low"
+                                        data-dismiss="modal">Close</button>
+                                </div>
                              </div>
                          </div>
                      </div>
