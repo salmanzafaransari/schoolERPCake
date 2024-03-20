@@ -1,15 +1,16 @@
+<?php $this->start('title') ?>Add Class<?php $this->end() ?>
 <?php $this->start('stylescss') ?>
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/select2.min.css') ?>">
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/datepicker.min.css') ?>">
 <?php $this->end() ?>
 <!-- Breadcubs Area Start Here -->
 <div class="breadcrumbs-area">
-    <h3>Classes</h3>
+    <h3>Academics</h3>
     <ul>
         <li>
             <a href="index.html">Home</a>
         </li>
-        <li>Add New Class</li>
+        <li>Classes</li>
     </ul>
 </div>
 <!-- Breadcubs Area End Here -->
