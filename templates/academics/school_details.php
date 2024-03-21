@@ -39,35 +39,79 @@
                                      <span aria-hidden="true">&times;</span>
                                  </button>
                              </div>
-                             <div class="modal-body">
-                             <?= $this->Form->create(null, ['class' => 'new-added-form']) ?>
+                             <div class="modal-body" style="padding:40px;">
+                <?= $this->Form->create($schoolinfo, ['class' => 'new-added-form']) ?>
                     <div class="row">
                         <div class="col-xl-12 form-group">
-                            <?= $this->Form->control('class_name', ['label' => 'Class Name', 'class' => 'form-control']) ?>
+                        <?= $this->Form->control('school_name', ['label' => 'School Name', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('school_code', ['label' => 'School code', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('affiliation_no', ['label' => 'Affiliation no', 'class' => 'form-control']) ?>
                         </div>
                         <div class="col-xl-12 form-group">
-                            <?= $this->Form->control('section', ['label' => 'Section', 'class' => 'select2', 'options' => ['' => 'Please Select', 'A' => 'A', 'B' => 'B', 'C' => 'C']]) ?>
+                        <?= $this->Form->control('address_line_1', ['label' => 'Address 1', 'class' => 'form-control']) ?>
                         </div>
-                        <div class="col-12 form-group mg-t-10">
-                            <?= $this->Form->button('Submit', ['class' => 'btn-fill-lg btn-gradient-yellow btn-hover-bluedark']) ?>
+                        <div class="col-xl-12 form-group">
+                        <?= $this->Form->control('address_line_2', ['label' => 'Address 2', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-4 form-group">
+                        <?= $this->Form->control('city', ['label' => 'City', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-4 form-group">
+                        <?= $this->Form->control('state', ['label' => 'State', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-4 form-group">
+                        <?= $this->Form->control('country', ['label' => 'Country', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('pincode', ['label' => 'Pincode', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('board', ['label' => 'Board Name', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('session_start_date', ['label' => 'Session Start', 'class'=>'form-control air-datepicker', 'type'=>'text', 'placeholder'=>"dd/mm/yyyy"]) ?><i class="far fa-calendar-alt"></i>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('session_end_date', ['label' => 'Session End', 'class'=>'form-control air-datepicker', 'type'=>'text', 'placeholder'=>"dd/mm/yyyy"]) ?><i class="far fa-calendar-alt"></i>
+                        </div>
+                        <div class="col-xl-12 form-group">
+                        <?= $this->Form->control('email', ['label' => 'Email', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('phone', ['label' => 'Phone', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('support_no', ['label' => 'Support No', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('support_email', ['label' => 'Support Email', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                        <?= $this->Form->control('website', ['label' => 'Website', 'class' => 'form-control']) ?>
+                        </div>
+                        <div class="col-xl-12 form-group">
+                        <?= $this->Form->control('principal', ['label' => 'Principal Name', 'class' => 'form-control']) ?>
                         </div>
                     </div>
-                <?= $this->Form->end() ?>
-                             </div>
-                             <div class="modal-footer d-flex">
+                    </div>
+                             <div class="modal-footer">
                                  <div class="col-6">
-                                    <button type="button" class="footer-btn bg-linkedin">Save
-                                        Changes</button>
+                            <?= $this->Form->button('Save Changes', ['class' => 'btn-fill-lg btn-gradient-yellow btn-hover-bluedark']) ?>
 
                                 </div>
-                                <div class="col-6 d-flex pull-right">
-
-                                    <button type="button" class="footer-btn bg-dark-low"
+                                <div class="col-6  d-flex justify-content-end">
+                                    <button type="button" class="btn-fill-lg  footer-btn bg-dark-low" data-bs-toggle="popover" data-bs-placement="right"
                                         data-dismiss="modal">Close</button>
                                 </div>
                              </div>
                          </div>
                      </div>
+                     
+                <?= $this->Form->end() ?>
                  </div>
              </div>
              <div class="user-details-box">
@@ -82,75 +126,75 @@
                              <tbody>
                                  <tr>
                                      <td>School Name:</td>
-                                     <td class="font-medium text-dark-medium">ABC School</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['school_name']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>School Code:</td>
-                                     <td class="font-medium text-dark-medium">Super Admin</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['school_code']; ?> </td>
                                  </tr>
                                  <tr>
                                   <td>Affliation No.:</td>
-                                  <td class="font-medium text-dark-medium">Male</td>
+                                  <td class="font-medium text-dark-medium"><?php echo $schoolinfo['affiliation_no']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Address Line 1:</td>
-                                     <td class="font-medium text-dark-medium">Super Admin</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['address_line_1']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Address Line 2:</td>
-                                     <td class="font-medium text-dark-medium">Super Admin</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['address_line_2']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>City:</td>
-                                     <td class="font-medium text-dark-medium">Steve Jones</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['city']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>State:</td>
-                                     <td class="font-medium text-dark-medium">Naomi Rose</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['state']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Country:</td>
-                                     <td class="font-medium text-dark-medium">07.08.2016</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['country']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Pincode:</td>
-                                     <td class="font-medium text-dark-medium">Islam</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['pincode']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Board:</td>
-                                     <td class="font-medium text-dark-medium">07.08.2016</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['board']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Session Start Date:</td>
-                                     <td class="font-medium text-dark-medium">stevenjohnson@gmail.com</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['session_start_date']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Session End Date:</td>
-                                     <td class="font-medium text-dark-medium">stevenjohnson@gmail.com</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['session_end_date']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>E-mail:</td>
-                                     <td class="font-medium text-dark-medium">stevenjohnson@gmail.com</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['email']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Phone:</td>
-                                     <td class="font-medium text-dark-medium">English</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['phone']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Support No.:</td>
-                                     <td class="font-medium text-dark-medium">English</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['support_no']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Support Email.:</td>
-                                     <td class="font-medium text-dark-medium">English</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['support_email']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Website:</td>
-                                     <td class="font-medium text-dark-medium">2</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['website']; ?></td>
                                  </tr>
                                  <tr>
                                      <td>Principal:</td>
-                                     <td class="font-medium text-dark-medium">Pink</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['principal']; ?></td>
                                  </tr>
                              </tbody>
                          </table>

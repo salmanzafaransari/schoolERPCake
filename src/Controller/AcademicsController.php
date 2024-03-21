@@ -43,7 +43,21 @@
     }
 
     public function schoolDetails(){
-     
+        $this->loadModel('Schooldetail');
+        $school = $this->Schooldetail->newEmptyEntity();
+        $schoolinfo = $this->Schooldetail->find()->first();
+        $this->set(compact('schoolinfo'));
+        if ($this->request->is(['post', 'put'])) {
+        $school = $this->Schooldetail->get($schoolinfo->id);
+        $school = $this->Schooldetail->patchEntity($school, $this->request->getData());
+
+        if ($this->Schooldetail->save($school)) {
+            $this->Flash->success(__('School Information Updated Successfully'));
+            return $this->redirect(['action' => 'schoolDetails']);
+        } else {
+            $this->Flash->error(__('The school information could not be updated. Please, try again.'));
+        }
+    }
     }
 
    }
