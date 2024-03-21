@@ -20,99 +20,92 @@
      <div class="card account-settings-box">
          <div class="card-body"  style="margin-top:80px;">
              <div class="heading-layout1 mg-b-20">
-                 <div class="item-title">
-                     <h3>User Details</h3>
-                 </div>
+                <div class="item-title">
+                    <h3>School Details</h3>
+                </div>
                 <div class="dropdown">
                    <button type="button" class="modal-trigger" data-toggle="modal"
                        data-target="#large-modal">
-                       Edit This Info
+                       Edit School Details
                    </button>
-                 </div>
-                 <div class="modal fade" id="large-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                     <div class="modal-dialog modal-lg" role="document">
-                         <div class="modal-content">
-                             <div class="modal-header">
-                                 <h5 class="modal-title">Large Modal</h5>
-                                 <button type="button" class="close" data-dismiss="modal"
-                                     aria-label="Close">
-                                     <span aria-hidden="true">&times;</span>
-                                 </button>
-                             </div>
-                             <div class="modal-body" style="padding:40px;">
-                <?= $this->Form->create($schoolinfo, ['class' => 'new-added-form']) ?>
-                    <div class="row">
-                        <div class="col-xl-12 form-group">
-                        <?= $this->Form->control('school_name', ['label' => 'School Name', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('school_code', ['label' => 'School code', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('affiliation_no', ['label' => 'Affiliation no', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-12 form-group">
-                        <?= $this->Form->control('address_line_1', ['label' => 'Address 1', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-12 form-group">
-                        <?= $this->Form->control('address_line_2', ['label' => 'Address 2', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-4 form-group">
-                        <?= $this->Form->control('city', ['label' => 'City', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-4 form-group">
-                        <?= $this->Form->control('state', ['label' => 'State', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-4 form-group">
-                        <?= $this->Form->control('country', ['label' => 'Country', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('pincode', ['label' => 'Pincode', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('board', ['label' => 'Board Name', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('session_start_date', ['label' => 'Session Start', 'class'=>'form-control air-datepicker', 'type'=>'text', 'placeholder'=>"dd/mm/yyyy"]) ?><i class="far fa-calendar-alt"></i>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('session_end_date', ['label' => 'Session End', 'class'=>'form-control air-datepicker', 'type'=>'text', 'placeholder'=>"dd/mm/yyyy"]) ?><i class="far fa-calendar-alt"></i>
-                        </div>
-                        <div class="col-xl-12 form-group">
-                        <?= $this->Form->control('email', ['label' => 'Email', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('phone', ['label' => 'Phone', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('support_no', ['label' => 'Support No', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('support_email', ['label' => 'Support Email', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                        <?= $this->Form->control('website', ['label' => 'Website', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-12 form-group">
-                        <?= $this->Form->control('principal', ['label' => 'Principal Name', 'class' => 'form-control']) ?>
+                </div>
+                <div class="modal fade" id="large-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit School Details</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                             <?= $this->Form->create($schoolinfo, ['class' => 'new-added-form']) ?>
+                               <div class="row">
+                                   <div class="col-xl-12 form-group">
+                                    <?= $this->Form->control('school_name', ['label' => 'School Name', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('school_code', ['label' => 'School code', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('affiliation_no', ['label' => 'Affiliation no', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-12 form-group">
+                                    <?= $this->Form->control('address_line_1', ['label' => 'Address 1', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-12 form-group">
+                                    <?= $this->Form->control('address_line_2', ['label' => 'Address 2', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-4 form-group">
+                                    <?= $this->Form->control('city', ['label' => 'City', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-4 form-group">
+                                    <?= $this->Form->control('state', ['label' => 'State', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-4 form-group">
+                                    <?= $this->Form->control('country', ['label' => 'Country', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('pincode', ['label' => 'Pincode', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('board', ['label' => 'Board Name', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('session_start_date', ['label' => 'Session Start', 'class'=>'form-control air-datepicker', 'type'=>'text', 'placeholder'=>"dd/mm/yyyy"]) ?><i class="far fa-calendar-alt"></i>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('session_end_date', ['label' => 'Session End', 'class'=>'form-control air-datepicker', 'type'=>'text', 'placeholder'=>"dd/mm/yyyy"]) ?><i class="far fa-calendar-alt"></i>
+                                   </div>
+                                   <div class="col-xl-12 form-group">
+                                    <?= $this->Form->control('email', ['label' => 'Email', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('phone', ['label' => 'Phone', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('support_no', ['label' => 'Support No', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('support_email', ['label' => 'Support Email', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('website', ['label' => 'Website', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-12 form-group">
+                                    <?= $this->Form->control('principal', ['label' => 'Principal Name', 'class' => 'form-control']) ?>
+                                   </div>
+                               </div>
+                            </div>
+                            <div class="modal-footer">
+                             <?= $this->Form->button('Save Changes', ['class' => 'footer-btn text-white btn-gradient-yellow btn-hover-bluedark']) ?>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                             <div class="modal-footer">
-                                 <div class="col-6">
-                            <?= $this->Form->button('Save Changes', ['class' => 'btn-fill-lg btn-gradient-yellow btn-hover-bluedark']) ?>
-
-                                </div>
-                                <div class="col-6  d-flex justify-content-end">
-                                    <button type="button" class="btn-fill-lg  footer-btn bg-dark-low" data-bs-toggle="popover" data-bs-placement="right"
-                                        data-dismiss="modal">Close</button>
-                                </div>
-                             </div>
-                         </div>
-                     </div>
-                     
-                <?= $this->Form->end() ?>
-                 </div>
+                    
+                         <?= $this->Form->end() ?>
+                </div>
              </div>
              <div class="user-details-box">
                  <div class="d-flex" style="justify-content:center;">
@@ -210,4 +203,12 @@
 <script src="<?= $this->Url->webroot('js/select2.min.js') ?>"></script>
 <script src="<?= $this->Url->webroot('js/datepicker.min.js') ?>"></script>
 <script src="<?= $this->Url->webroot('js/jquery.scrollUp.min.js') ?>"></script>
+<script>
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy'
+            // Add other options if needed
+        });
+    });
+</script>
 <?php $this->end() ?>
