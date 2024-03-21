@@ -57,7 +57,12 @@
                 return $value;
             }
         ]);
-        $this->set(compact('classes'));
+        
+        // get current session
+        $schooldetailsTable = $this->getTableLocator()->get('Schooldetail');
+        $currsession = $schooldetailsTable->getSessionList(3); 
+
+        $this->set(compact('classes', 'currsession'));
      }
 
     }
