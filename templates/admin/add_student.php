@@ -31,6 +31,9 @@
                 <?= $this->Form->control('admission_id', ['label' => 'Admission ID', 'class'=>'form-control', 'type'=>'text']) ?>
             </div>
             <div class="col-xl-3 col-lg-6 col-12 form-group">
+                <?= $this->Form->control('session', ['label' => 'Admission Session', 'class'=>'select2', 'options'=>$currsession]) ?>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-12 form-group">
                 <?= $this->Form->control('first_name', ['label' => 'First Name', 'class'=>'form-control', 'type'=>'text']) ?>
             </div>
             <div class="col-xl-3 col-lg-6 col-12 form-group">
