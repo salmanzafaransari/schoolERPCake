@@ -41,26 +41,21 @@
                              </div>
                              <div class="modal-body">
                              <?= $this->Form->create(null, ['class' => 'new-added-form']) ?>
-                    <div class="row">
-                        <div class="col-xl-6 form-group">
-                            <?= $this->Form->control('class_name', ['label' => 'Class Name', 'class' => 'form-control']) ?>
-                        </div>
-                        <div class="col-xl-6 form-group">
-                            <?= $this->Form->control('section', ['label' => 'Section', 'class' => 'select2', 'options' => ['' => 'Please Select', 'A' => 'A', 'B' => 'B', 'C' => 'C']]) ?>
-                        </div>
-                        <div class="col-12 form-group mg-t-10">
-                            <?= $this->Form->button('Submit', ['class' => 'btn-fill-lg btn-gradient-yellow btn-hover-bluedark']) ?>
-                        </div>
-                    </div>
-                <?= $this->Form->end() ?>
-                             </div>
-                             <div class="modal-footer d-flex">
-                                 <div class="col-6">
-                                    <button type="button" class="footer-btn bg-linkedin">Save
-                                        Changes</button>
-
+                               <div class="row">
+                                   <div class="col-xl-6 form-group">
+                                       <?= $this->Form->control('class_name', ['label' => 'Class Name', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-6 form-group">
+                                       <?= $this->Form->control('section', ['label' => 'Section', 'class' => 'select2', 'options' => ['' => 'Please Select', 'A' => 'A', 'B' => 'B', 'C' => 'C']]) ?>
+                                   </div>
+                               </div>
+                              </div>
+                              <div class="modal-footer d-flex">
+                               <div class="col-6">
+                                <?= $this->Form->button('Save Changes', ['class' => 'footer-btn bg-linkedin']) ?>
+                                <?= $this->Form->end() ?>
                                 </div>
-                                <div class="col-6 d-flex pull-right">
+                                <div class="col-6 col-6 d-flex justify-content-end">
 
                                     <button type="button" class="footer-btn bg-dark-low"
                                         data-dismiss="modal">Close</button>
