@@ -57,8 +57,9 @@
         } else {
             $this->Flash->error(__('The school information could not be updated. Please, try again.'));
         }
+     }
     }
-    }
+ 
 
-   }
+  }
 ?>
