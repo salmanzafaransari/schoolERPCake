@@ -2,6 +2,36 @@
 <?php $this->start('stylescss') ?>
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/select2.min.css') ?>">
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/datepicker.min.css') ?>">
+<style>
+    .cam{
+        position: relative;
+        background: #3838388a;
+        top: 0;
+        left: 0;
+        width: 140px;
+        height: 142px;
+        margin-top: -145px;
+        margin-left: 5px;
+        border-radius: 50%;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity .5s;
+        cursor: pointer;
+    }
+    .item-img:hover .cam{
+        opacity: 1;
+    }
+    .item-img img{
+        width:100%;
+        height:100%;
+    }
+    .cam i {
+        font-size:32px;
+        color:#fff;
+    }
+</style>
 <?php $this->end() ?>
 <!-- Breadcubs Area Start Here -->
 <div class="breadcrumbs-area">
@@ -109,10 +139,34 @@
              </div>
              <div class="user-details-box">
                  <div class="d-flex" style="justify-content:center;">
-                  <div class="item-img" style="margin-top:-160px; width:150px; height:150px;">
-                      <img src="<?= $this->Url->webroot('img/figure/user.jpg') ?>" alt="School Logo" style=" border:4px solid #fff">
+                  <div class="item-img" data-toggle="modal"
+                       data-target="#changeLogo" style="margin-top:-170px; width:150px; height:150px;">
+                       <?= $this->Html->image($schoolinfo['school_logo'], [ 'style'=> "border: 4px solid #ffae01;"]) ?>
+                      <div class="cam"><i class="fa fa-camera"></i></div>
                   </div>
-                 </div>
+                  <div class="modal fade" id="changeLogo" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog  modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Change School Logo</h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <?= $this->Form->create(null, ['url' => ['action' => 'updateLogo', $schoolinfo->id], 'enctype' => 'multipart/form-data']) ?>
+                                        <div class="d-flex justify-content-between">
+                                            <?= $this->Form->control('school_logo', ['type' => 'file', 'class' => 'form-control-file', 'label' => false]) ?>
+                                            <button type="submit" class="btn btn-lg text-white btn-gradient-yellow btn-hover-bluedark">Save Changes</button>
+                                        </div>
+                                    <?= $this->Form->end() ?>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                  <div class="item-content">
                      <div class="info-table table-responsive">
                          <table class="table text-nowrap">
