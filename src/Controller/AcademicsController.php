@@ -58,6 +58,31 @@
             $this->Flash->error(__('The school information could not be updated. Please, try again.'));
         }
      }
+     
+    }
+    public function updateLogo($id)
+    {
+        // Check if a file was uploaded
+        
+        if ($this->request->is('post')) {
+            $this->loadModel('Schooldetail');
+            $schoolinfo = $this->Schooldetail->newEmptyEntity();
+            $schoolinfo = $this->Schooldetail->get($id);
+            $file = $this->request->getData('school_logo');
+            $uploadPath = WWW_ROOT . 'img';
+            $filename = time() . '_' . $file->getClientFilename();
+            $file->moveTo($uploadPath . DS . $filename);
+            
+            // Save the file name (or file path) in the database
+            $schoolinfo->school_logo = $filename;
+            
+            // Save the entity
+            if ($this->Schooldetail->save($schoolinfo)) {
+                $this->Flash->success(__('School logo Updated Successfully'));
+                return $this->redirect(['action' => 'schoolDetails']);
+            }
+            $this->set(compact('schoolinfo'));
+        }
     }
  
 
