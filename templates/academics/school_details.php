@@ -1,7 +1,7 @@
 <?php $this->start('title') ?>School Details<?php $this->end() ?>
 <?php $this->start('stylescss') ?>
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/select2.min.css') ?>">
-<link rel="stylesheet" href="<?= $this->Url->webroot('css/datepicker.min.css') ?>">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <style>
     .cam{
         position: relative;
@@ -255,14 +255,13 @@
 
 <?php $this->start('scripts') ?>
 <script src="<?= $this->Url->webroot('js/select2.min.js') ?>"></script>
-<script src="<?= $this->Url->webroot('js/datepicker.min.js') ?>"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="<?= $this->Url->webroot('js/jquery.scrollUp.min.js') ?>"></script>
 <script>
-    $(document).ready(function () {
-        $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy'
-            // Add other options if needed
-        });
+  $( function() {
+    $( ".air-datepicker" ).datepicker({
+      dateFormat: 'dd/mm/yy'
     });
-</script>
+  } );
+  </script>
 <?php $this->end() ?>
