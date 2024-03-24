@@ -10,7 +10,7 @@
       
      }
      
-     public function addClass() {
+    public function addClass() {
         $this->loadModel('Classlist');
         $class = $this->Classlist->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -60,10 +60,7 @@
      }
      
     }
-    public function updateLogo($id)
-    {
-        // Check if a file was uploaded
-        
+    public function updateLogo($id){
         if ($this->request->is('post')) {
             $this->loadModel('Schooldetail');
             $schoolinfo = $this->Schooldetail->get($id);

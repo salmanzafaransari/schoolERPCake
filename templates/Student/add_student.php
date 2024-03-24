@@ -1,4 +1,6 @@
 <?php $this->start('title') ?>Add Student<?php $this->end() ?>
+<?php $this->start('activeStu') ?>sub-group-active<?php $this->end() ?>
+<?php $this->start('activeAS') ?>menu-active<?php $this->end() ?>
 <?php $this->start('stylescss') ?>
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/select2.min.css') ?>">
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/datepicker.min.css') ?>">

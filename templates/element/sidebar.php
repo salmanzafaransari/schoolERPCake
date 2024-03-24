@@ -34,7 +34,7 @@ $html = new HtmlHelper(new \Cake\View\View());
             </li>
             <li class="nav-item sidebar-nav-item">
                 <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Students</span></a>
-                <ul class="nav sub-group-menu">
+                <ul class="nav sub-group-menu  <?= $this->fetch('activeStu') ?>">
                     <li class="nav-item">
                         <a href="all-student.html" class="nav-link"><i class="fas fa-angle-right"></i>All
                             Students</a>
@@ -48,8 +48,7 @@ $html = new HtmlHelper(new \Cake\View\View());
                                 class="fas fa-angle-right"></i>Admission Form</a>
                     </li>
                     <li class="nav-item">
-                        <a href="student-promotion.html" class="nav-link"><i
-                                class="fas fa-angle-right"></i>Student Promotion</a>
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Add Student', ['controller' => 'Student', 'action' => 'addStudent'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeAS')]); ?>
                     </li>
                 </ul>
             </li>
