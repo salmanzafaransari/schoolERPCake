@@ -1,6 +1,6 @@
 <?php $this->start('title') ?>School Details<?php $this->end() ?>
-<?php $this->start('isActive') ?>sub-group-active<?php $this->end() ?>
-<?php $this->start('isLinkActive') ?>menu-active<?php $this->end() ?>
+<?php $this->start('activeAcademics') ?>sub-group-active<?php $this->end() ?>
+<?php $this->start('activeSD') ?>menu-active<?php $this->end() ?>
 <?php $isActive = 'school-details';?>
 <?php $this->start('stylescss') ?>
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/select2.min.css') ?>">

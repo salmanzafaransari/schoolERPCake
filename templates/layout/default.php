@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $this->fetch('title') ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="<?= $this->Url->webroot('img/') ?>favicon.png">
+    <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')) ?>
 
     <?= $this->fetch('meta') ?>
     <!-- Normalize CSS -->
