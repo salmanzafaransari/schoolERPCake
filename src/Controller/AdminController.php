@@ -40,7 +40,7 @@
             $this->Flash->error(__('The class could not be deleted. Please, try again.'));
         }
     
-        return $this->redirect(['action' => 'addClass']); // Redirect to the class list page
+        return $this->redirect(['action' => 'addClass']);
     }
     
     

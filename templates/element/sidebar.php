@@ -15,9 +15,9 @@ $html = new HtmlHelper(new \Cake\View\View());
         <ul class="nav nav-sidebar-menu sidebar-toggle-view">
             <li class="nav-item sidebar-nav-item">
                 <a href="#" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
-                <ul class="nav sub-group-menu sub-group-active">
+                <ul class="nav sub-group-menu">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link  menu-active"><i class="fas fa-angle-right"></i>Admin</a>
+                        <a href="index.html" class="nav-link"><i class="fas fa-angle-right"></i>Admin</a>
                     </li>
                     <li class="nav-item">
                         <a href="index3.html" class="nav-link"><i
@@ -206,13 +206,13 @@ $html = new HtmlHelper(new \Cake\View\View());
             <li class="nav-item sidebar-nav-item">
                 <a href="#" class="nav-link"><i
                         class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Academics</span></a>
-                <ul class="nav sub-group-menu">
+                <ul class="nav sub-group-menu <?= $this->fetch('activeAcademics') ?>">
                     <li class="nav-item">
                         <!-- <a href="/academics/add-class" class="nav-link"><i class="fas fa-angle-right"></i>School Details</a> -->
-                        <?php echo $html->link('<i class="fas fa-angle-right"></i>School Details', ['controller' => 'Academics', 'action' => 'schoolDetails'], ['escape' => false, 'class' => 'nav-link']); ?>
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>School Details', ['controller' => 'Academics', 'action' => 'schoolDetails'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSD')]); ?>
                     </li>
                     <li class="nav-item">
-                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Classes', ['controller' => 'Academics', 'action' => 'addClass'], ['escape' => false, 'class' => 'nav-link']); ?>
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Classes', ['controller' => 'Academics', 'action' => 'addClass'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeClass')]); ?>
                     </li>
                 </ul>
             </li>
