@@ -1,4 +1,7 @@
 <?php $this->start('title') ?>School Details<?php $this->end() ?>
+<?php $this->start('isActive') ?>sub-group-active<?php $this->end() ?>
+<?php $this->start('isLinkActive') ?>menu-active<?php $this->end() ?>
+<?php $isActive = 'school-details';?>
 <?php $this->start('stylescss') ?>
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/select2.min.css') ?>">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -292,5 +295,5 @@
     }
 }
 
-  </script>
+</script>
 <?php $this->end() ?>
