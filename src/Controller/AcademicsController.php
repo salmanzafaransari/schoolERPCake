@@ -66,23 +66,39 @@
         
         if ($this->request->is('post')) {
             $this->loadModel('Schooldetail');
-            $schoolinfo = $this->Schooldetail->newEmptyEntity();
             $schoolinfo = $this->Schooldetail->get($id);
+            
+            // Retrieve the path of the previously stored image
+            $previousImage = $schoolinfo->school_logo;
+        
+            // Delete the previous image from the server
+            if (!empty($previousImage)) {
+                $imagePath = WWW_ROOT . 'img' . DS . $previousImage;
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+        
+            // Process the new image
             $file = $this->request->getData('school_logo');
             $uploadPath = WWW_ROOT . 'img';
             $filename = time() . '_' . $file->getClientFilename();
             $file->moveTo($uploadPath . DS . $filename);
             
-            // Save the file name (or file path) in the database
+            // Update the entity with the new image filename
             $schoolinfo->school_logo = $filename;
             
             // Save the entity
             if ($this->Schooldetail->save($schoolinfo)) {
                 $this->Flash->success(__('School logo Updated Successfully'));
                 return $this->redirect(['action' => 'schoolDetails']);
+            } else {
+                $this->Flash->error(__('Failed to update school logo'));
             }
-            $this->set(compact('schoolinfo'));
         }
+        
+        $this->set(compact('schoolinfo'));
+        
     }
  
 

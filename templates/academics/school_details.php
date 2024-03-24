@@ -27,6 +27,14 @@
         width:100%;
         height:100%;
     }
+    .item-img-2{
+        margin-bottom:20px;
+    }
+    .item-img-2 img{
+        width:100%;
+        height:100%;
+        border-radius:50%;
+    }
     .cam i {
         font-size:32px;
         color:#fff;
@@ -139,29 +147,31 @@
              </div>
              <div class="user-details-box">
                  <div class="d-flex" style="justify-content:center;">
-                  <div class="item-img" data-toggle="modal"
-                       data-target="#changeLogo" style="margin-top:-170px; width:150px; height:150px;">
+                  <div class="item-img" data-toggle="modal" data-target="#changeLogo" style="margin-top:-170px; width:150px; height:150px;">
                        <?= $this->Html->image($schoolinfo['school_logo'], [ 'style'=> "border: 4px solid #ffae01;"]) ?>
                       <div class="cam"><i class="fa fa-camera"></i></div>
                   </div>
-                  <div class="modal fade" id="changeLogo" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog  modal-dialog-centered" role="document">
+                    <div class="modal fade" id="changeLogo" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Change School Logo</h5>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <?= $this->Form->create(null, ['url' => ['action' => 'updateLogo', $schoolinfo->id], 'enctype' => 'multipart/form-data']) ?>
-                                        <div class="d-flex justify-content-between">
-                                            <?= $this->Form->control('school_logo', ['type' => 'file', 'class' => 'form-control-file', 'label' => false]) ?>
-                                            <button type="submit" class="btn btn-lg text-white btn-gradient-yellow btn-hover-bluedark">Save Changes</button>
+                                    <center>
+                                        <div class="item-img-2" style="width:150px; height:150px;">
+                                            <img id="changeLogoPreview" src="<?= $this->Url->webroot('img/' . $schoolinfo['school_logo']) ?>" style="border: 4px solid #ffae01;">
                                         </div>
+                                    </center>
+                                    <?= $this->Form->create(null, ['url' => ['action' => 'updateLogo', $schoolinfo->id], 'enctype' => 'multipart/form-data']) ?>
+                                    <div class="d-flex justify-content-between">
+                                        <?= $this->Form->control('school_logo', ['type' => 'file', 'class' => 'form-control-file', 'label' => false, 'id' => 'fileInput']) ?>
+                                        <button type="submit" class="btn btn-lg text-white btn-gradient-yellow btn-hover-bluedark">Save Changes</button>
+                                    </div>
                                     <?= $this->Form->end() ?>
-
                                 </div>
                             </div>
                         </div>
@@ -263,5 +273,24 @@
       dateFormat: 'dd/mm/yy'
     });
   } );
+  $(document).ready(function(){
+        $('#fileInput').change(function(){
+            readURL(this);
+        });
+    });
+
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            console.log(e);
+            $('#changeLogoPreview').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]); // Convert the file to a data URL
+    }
+}
+
   </script>
 <?php $this->end() ?>
