@@ -27,13 +27,19 @@
                 
             </div>
         </div>
-        <?= $this->Form->create(null, ['class' => 'new-added-form']) ?>
+        <?= $this->Form->create($student ?? null, ['class' => 'new-added-form']) ?>
         <div class="row">
             <div class="col-xl-3 col-lg-6 col-12 form-group">
                 <?= $this->Form->control('admission_id', ['label' => 'Admission ID', 'class'=>'form-control', 'type'=>'text']) ?>
             </div>
             <div class="col-xl-3 col-lg-6 col-12 form-group">
+                <?= $this->Form->control('admission_date', ['label' => 'Admission Date', 'class'=>'form-control air-datepicker', 'type'=>'text', 'placeholder'=>"dd/mm/yyyy", 'value' => date('d/m/Y')]) ?><i class="far fa-calendar-alt"></i>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-12 form-group">
                 <?= $this->Form->control('session', ['label' => 'Admission Session', 'class'=>'select2', 'options'=>$currsession]) ?>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                <?= $this->Form->control('class_id', ['label' => 'Class', 'class'=>'select2', 'options' => $classes]) ?>
             </div>
             <div class="col-xl-3 col-lg-6 col-12 form-group">
                 <?= $this->Form->control('first_name', ['label' => 'First Name', 'class'=>'form-control', 'type'=>'text']) ?>
@@ -54,10 +60,7 @@
                 <?= $this->Form->control('religion', ['label' => 'Religion', 'class'=>'select2', 'options' => ['Islam' => 'Islam', 'Hindu' => 'Hindu', 'Christian' => 'Christian', 'Buddish' => 'Buddish', 'Others' => 'Others']]) ?>
             </div>
             <div class="col-xl-3 col-lg-6 col-12 form-group">
-                <?= $this->Form->control('class_id', ['label' => 'Class', 'class'=>'select2', 'options' => $classes]) ?>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                <?= $this->Form->control('mobile', ['label' => 'Mobile No.', 'class'=>'form-control', 'type'=>'text']) ?>
+                <?= $this->Form->control('cast', ['label' => 'Cast', 'class'=>'form-control', 'type'=>'text']) ?>
             </div>
             <div class="col-12 form-group mg-t-8">
                 <div class="row">
