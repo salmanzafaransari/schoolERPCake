@@ -36,8 +36,7 @@ $html = new HtmlHelper(new \Cake\View\View());
                 <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Students</span></a>
                 <ul class="nav sub-group-menu  <?= $this->fetch('activeStu') ?>">
                     <li class="nav-item">
-                        <a href="all-student.html" class="nav-link"><i class="fas fa-angle-right"></i>All
-                            Students</a>
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>All Student', ['controller' => 'Student', 'action' => 'allStudent'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeAllStu')]); ?>
                     </li>
                     <li class="nav-item">
                         <a href="student-details.html" class="nav-link"><i
