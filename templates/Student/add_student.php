@@ -62,6 +62,15 @@
             <div class="col-xl-3 col-lg-6 col-12 form-group">
                 <?= $this->Form->control('cast', ['label' => 'Cast', 'class'=>'form-control', 'type'=>'text']) ?>
             </div>
+            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                <?= $this->Form->control('city', ['label' => 'City', 'class'=>'form-control', 'type'=>'text']) ?>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-12 form-group">
+                <?= $this->Form->control('address_local', ['label' => 'Address Local', 'class'=>'form-control', 'type'=>'text']) ?>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-12 form-group">
+                <?= $this->Form->control('address_permanent', ['label' => 'Address Permanent', 'class'=>'form-control', 'type'=>'text']) ?>
+            </div>   
             <div class="col-12 form-group mg-t-8">
                 <div class="row">
                     <div class="col-6">

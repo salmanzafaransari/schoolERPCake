@@ -60,8 +60,6 @@
                 <?php 
                             $count =1; 
                             foreach ($students as $student): 
-                             // debug($student);
-                             // die();
                             ?>
                     <tr>
                         <td><?php echo h($student->admission_id); ?></td>

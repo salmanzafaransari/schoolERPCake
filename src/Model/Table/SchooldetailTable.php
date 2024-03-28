@@ -15,7 +15,6 @@ class SchooldetailTable extends Table
     public function getSessionList($ind)
     {
         $i = 0;
-        $sessions = [];
 
         // Get the session start date from the database
         $schooldetail = $this->find()->select(['session_start_date'])->first();

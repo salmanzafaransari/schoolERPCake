@@ -73,6 +73,13 @@
         ->toArray();
         $this->set(compact('students'));
      }
+     public function addParent(){
+        $this->loadModel('Student');
+        $students = $this->Student->find()
+        ->contain('Classlist')
+        ->toArray();
+        $this->set(compact('students'));
+     }
     }
 
 
