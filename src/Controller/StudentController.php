@@ -6,23 +6,33 @@
     class StudentController extends AppController
     {
     
-      protected function _generateStudentId()
-        {
+        protected function _generateStudentId() {
             $this->loadModel('Student');
-            do {
-                // Generate a random ID
-                $randomNumber = mt_rand(1111, 9999);
-                $currentYear = date('Y'); // Get the current year
-                $newId = 'MH' . $currentYear .'/'. str_pad($randomNumber, 4, '0', STR_PAD_LEFT);
-
-                // Check if the generated ID already exists in the database
-                $existingRecord = $this->Student->find()->where(['admission_id' => $newId])->first();
-            } while ($existingRecord); // Repeat if the ID already exists
+            
+            // Get the current year
+            $currentYear = date('Y');
+            $prefix = 'MH' . $currentYear;
+        
+            // Find the highest existing student ID for the current year
+            $existingRecord = $this->Student->find()
+                ->select(['admission_id'])
+                ->where(['admission_id LIKE' => $prefix . '%'])
+                ->order(['admission_id' => 'DESC'])
+                ->first();
+            if (!$existingRecord) {
+                $newId = $prefix . '0001';
+            } else {
+                $serialNumber = (int)substr($existingRecord->admission_id, 6);
+                $serialNumber++;
+                $newId = $prefix . str_pad($serialNumber, 4, '0', STR_PAD_LEFT);
+            }
+            
             return $newId;
-      }
+        }
+        
      public function profile(){
      }
-     public function addStudent($studentId = null) {
+     public function studentForm($studentId = null) {
         $this->loadModel('Classlist');
         $this->loadModel('Student');
         $classes = $this->Classlist->find('list', [
@@ -30,40 +40,41 @@
             'valueField' => function ($row) {
                 $value = $row['class_name'];
                 if (!empty($row['section'])) {
-                    $value .= ' - ' . $row['section'];
+                    $value .= ' ' . $row['section'];
                 }
                 return $value;
             }
-        ]);
+        ])->where(['status' => 1]);
     
-        // get current session
         $schooldetailsTable = $this->getTableLocator()->get('Schooldetail');
         $currsession = $schooldetailsTable->getSessionList(3); 
     
-        // Check if a student ID is provided for editing
         if ($studentId) {
             $student = $this->Student->get($studentId);
-            // Pass the existing admission ID to the view
             $admissionId = $student->admission_id;
         } else {
-            // Generate admission ID for new student
             $admissionId = $this->_generateStudentId();
-            // Create a new student entity and set admission_id
             $student = $this->Student->newEmptyEntity();
             $student->admission_id = $admissionId;
         }
     
         if ($this->request->is(['post', 'put'])) {
             $data = $this->request->getData();
-            
+            $isUpdate = isset($student->id) && !empty($student->id);
             $student = $this->Student->patchEntity($student, $data);
             if ($this->Student->save($student)) {
-                $this->Flash->success(__('The student has been saved.'));
-                return $this->redirect(['action' => 'addStudent']);
+                if ($isUpdate) {
+                    $this->Flash->success(__('The student record has been updated.'));
+                    return $this->redirect(['action' => 'allStudent']);
+                } else {
+                    $this->Flash->success(__('The student has been saved.'));
+                    return $this->redirect(['action' => 'studentForm']);
+                }
             } else {
                 $this->Flash->error(__('Unable to save the student.'));
             }
         }
+        
         $this->set(compact('classes', 'currsession', 'admissionId', 'student'));
      }
      public function allStudent(){
@@ -75,10 +86,28 @@
      }
      public function addParent(){
         $this->loadModel('Student');
+        $this->loadModel('Parent');
         $students = $this->Student->find()
         ->contain('Classlist')
+        ->contain('Parent')
         ->toArray();
+        // debug($students);
+        // die();
+
         $this->set(compact('students'));
+        if ($this->request->is(['post', 'put'])) {
+            $data = $this->request->getData();
+            $studentId = $data['student_id'];
+
+            $parent = $this->Parent->newEmptyEntity();
+            $parent = $this->Parent->patchEntity($parent, $data);
+            if ($this->Parent->save($parent)) {
+                $this->Flash->success(__('The parent information has been saved.'));
+            } else {
+                $this->Flash->error(__('Unable to save the parent information.'));
+            }
+        }
+        
      }
     }
 

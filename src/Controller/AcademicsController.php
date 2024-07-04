@@ -27,19 +27,17 @@
         $classes = $this->Classlist->find('all');
         $this->set(compact('classes'));
     }
-    public function deleteClass($id = null) {
+    public function toggleStatus($id = null) {
         $this->loadModel('Classlist');
-        $this->request->allowMethod(['post', 'delete']);
-    
+        $this->request->allowMethod(['post']);
         $class = $this->Classlist->get($id);
-    
-        if ($this->Classlist->delete($class)) { 
-            $this->Flash->success(__('The class has been deleted.'));
+        $class->status = $class->status == 1 ? 0 : 1; // Toggle status
+        if ($this->Classlist->save($class)) {
+            $this->Flash->success(__('The class status has been updated.'));
         } else {
-            $this->Flash->error(__('The class could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The class status could not be updated. Please, try again.'));
         }
-    
-        return $this->redirect(['action' => 'addClass']); // Redirect to the class list page
+        return $this->redirect(['action' => 'addClass']);
     }
 
     public function schoolDetails(){

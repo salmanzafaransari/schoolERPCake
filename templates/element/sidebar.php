@@ -47,7 +47,7 @@ $html = new HtmlHelper(new \Cake\View\View());
                                 class="fas fa-angle-right"></i>Admission Form</a>
                     </li>
                     <li class="nav-item">
-                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Add Student', ['controller' => 'Student', 'action' => 'addStudent'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeAS')]); ?>
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Add Student', ['controller' => 'Student', 'action' => 'studentForm'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeAS')]); ?>
                     </li>
                     <li class="nav-item">
                         <?php echo $html->link('<i class="fas fa-angle-right"></i>Add Parents', ['controller' => 'Student', 'action' => 'addParent'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeAP')]); ?>
