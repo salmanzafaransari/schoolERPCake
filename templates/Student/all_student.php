@@ -2,6 +2,7 @@
 <?php $this->start('activeStu') ?>sub-group-active<?php $this->end() ?>
 <?php $this->start('activeAllStu') ?>menu-active<?php $this->end() ?>
 <?php $this->start('stylescss') ?>
+    <link rel="stylesheet" href="<?= $this->Url->webroot('css/jquery.dataTables.min.css') ?>">
 <?php $this->end() ?>
 <div class="breadcrumbs-area">
     <h3>Students</h3>
@@ -45,33 +46,22 @@
             <table class="table display data-table text-nowrap">
                 <thead>
                     <tr>
+                        <th>Action</th>
                         <th>Admission No</th>
                         <th>Full Name</th>
                         <th>Gender</th>
                         <th>Class</th>
                         <th>Section</th>
-                        <th>Parents</th>
+                        <th>Father/Guardian</th>
                         <th>Address</th>
-                        <th>Date Of Birth</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php 
                             $count =1; 
                             foreach ($students as $student): 
-                             // debug($student);
-                             // die();
                             ?>
                     <tr>
-                        <td><?php echo h($student->admission_id); ?></td>
-                        <td><?php echo h($student->full_name); ?></td>
-                        <td align=center><?php echo h($student->gender); ?></td>
-                        <td align=center><?php echo h($student->classlist->class_name); ?></td>
-                        <td align=center><?php echo h($student->classlist->section); ?></td>
-                        <td>Jack Sparrow </td>
-                        <td>TA-107 Newyork</td>
-                        <td><?php echo h($student->date_of_birth); ?></td>
                         <td align=center>
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -79,15 +69,27 @@
                                     <span class="flaticon-more-button-of-three-dots"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-times text-orange-red"></i>Close</a>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Disable</a>
+                                    
+                                    <?php 
+                                        echo $this->Html->link(
+                                            '<i class="fas fa-cogs text-dark-pastel-green"></i>Edit', 
+                                            ['controller' => 'Student', 'action' => 'studentForm', $student->id], 
+                                            ['escape' => false, 'class' => 'dropdown-item' . $this->fetch('activeAS')]
+                                        ); 
+                                        ?>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
                                 </div>
                             </div>
                         </td>
+                        <td><?php echo h($student->admission_id); ?></td>
+                        <td><?php echo h($student->full_name); ?></td>
+                        <td align=center><?php echo h($student->gender); ?></td>
+                        <td align=center><?php echo h($student->classlist->class_name); ?></td>
+                        <td align=center><?php echo h($student->classlist->section); ?></td>
+                        <td>Jack Sparrow </td>
+                        <td><?php echo h($student->address_residential); ?></td>
+                        
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -97,4 +99,5 @@
 </div>
 <?php $this->start('scripts') ?>
 <script src="<?= $this->Url->webroot('js/jquery.scrollUp.min.js') ?>"></script>
+<script src="<?= $this->Url->webroot('js/jquery.dataTables.min.js') ?>"></script>
 <?php $this->end() ?>

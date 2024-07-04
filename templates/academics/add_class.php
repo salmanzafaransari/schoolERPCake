@@ -65,28 +65,35 @@
                     <table class="table display data-table text-nowrap">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th style="widht:60px;">#</th>
+                                <th style="text-align:center;">Active / Inactive</th>
                                 <th>Class Name</th>
                                 <th style="text-align:center;">Section</th>
-                                <th style="text-align:center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php 
                             $count =1; 
                             foreach ($classes as $class): ?>
-                                <tr>
-                                    <td><?php  echo $count++; ?></td> 
+                                <tr class="<?= $class->status == 0 ? 'bg-red text-white' : '' ?>">
+                                <td><?php  echo $count++; ?></td> 
+                                <td align="center">
+                                        <?= $this->Form->create(null, [
+                                            'id' => 'status-form-'.$class->id,
+                                            'url' => ['action' => 'toggleStatus', $class->id],
+                                            'style' => 'display:inline;',
+                                            'type' => 'post'
+                                        ]) ?>
+                                        <?= $this->Form->hidden('id', ['value' => $class->id]) ?>
+                                        <?= $this->Form->checkbox('status', [
+                                            'checked' => $class->status == 1,
+                                            'data-id' => $class->id,
+                                            'data-url' => $this->Url->build(['action' => 'toggleStatus', $class->id])
+                                        ]) ?>
+                                        <?= $this->Form->end() ?>
+                                    </td>
                                     <td><?php echo h($class->class_name); ?></td> 
                                     <td align="center"><?php echo h($class->section); ?></td>
-                                    <td align="center">
-                                        <?= $this->Form->create(null, ['id' => 'delete-form-'.$class->id, 'style' => 'display:none;', 'url' => ['action' => 'deleteClass', $class->id]]) ?>
-                                        <?= $this->Form->end() ?>
-                                        <?= $this->Form->button(__('Delete'), [
-                                            'class' => 'btn btn-lg btn-danger',
-                                            'onclick' => "deleteConfirmation({$class->id}, '{$class->class_name}', '{$class->section}')"
-                                        ]) ?>
-                                    </td>
 
                                 </tr>
                             <?php endforeach; ?>
@@ -105,21 +112,35 @@
 <script src="<?= $this->Url->webroot('js/jquery.scrollUp.min.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    function deleteConfirmation(classId, className, section) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: `You want to delete Class ${className} ${section} ?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.querySelector(`#delete-form-${classId}`).submit();
+    $(document).ready(function() {
+        $('input[type="checkbox"][name="status"]').change(function() {
+            var checkbox = $(this);
+            var isChecked = checkbox.is(':checked');
+            var classId = checkbox.data('id');
+            var formId = 'status-form-' + classId;
+
+            if (!isChecked) {
+                // Show SweetAlert confirmation before unchecking
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to mark this class as inactive.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, mark it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#' + formId).submit();
+                    } else {
+                        checkbox.prop('checked', true); // Keep it checked if canceled
+                    }
+                });
+            } else {
+                $('#' + formId).submit();
             }
         });
-    }
+    });
 </script>
 
 <?php $this->end() ?>
