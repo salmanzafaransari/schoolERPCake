@@ -6,29 +6,29 @@
     class StudentController extends AppController
     {
     
-        protected function _generateStudentId() {
-            $this->loadModel('Student');
-            
-            // Get the current year
-            $currentYear = date('Y');
-            $prefix = 'MH' . $currentYear;
+    protected function _generateStudentId() {
+        $this->loadModel('Student');
         
-            // Find the highest existing student ID for the current year
-            $existingRecord = $this->Student->find()
-                ->select(['admission_id'])
-                ->where(['admission_id LIKE' => $prefix . '%'])
-                ->order(['admission_id' => 'DESC'])
-                ->first();
-            if (!$existingRecord) {
-                $newId = $prefix . '0001';
-            } else {
-                $serialNumber = (int)substr($existingRecord->admission_id, 6);
-                $serialNumber++;
-                $newId = $prefix . str_pad($serialNumber, 4, '0', STR_PAD_LEFT);
-            }
-            
-            return $newId;
+        // Get the current year
+        $currentYear = date('Y');
+        $prefix = 'MH' . $currentYear;
+    
+        // Find the highest existing student ID for the current year
+        $existingRecord = $this->Student->find()
+            ->select(['admission_id'])
+            ->where(['admission_id LIKE' => $prefix . '%'])
+            ->order(['admission_id' => 'DESC'])
+            ->first();
+        if (!$existingRecord) {
+            $newId = $prefix . '0001';
+        } else {
+            $serialNumber = (int)substr($existingRecord->admission_id, 6);
+            $serialNumber++;
+            $newId = $prefix . str_pad($serialNumber, 4, '0', STR_PAD_LEFT);
         }
+        
+        return $newId;
+    }
         
      public function profile(){
      }
@@ -87,28 +87,49 @@
      public function addParent(){
         $this->loadModel('Student');
         $this->loadModel('Parent');
+    
+        // Fetch students and their parent data
         $students = $this->Student->find()
-        ->contain('Classlist')
-        ->contain('Parent')
-        ->toArray();
-        // debug($students);
-        // die();
-
-        $this->set(compact('students'));
+            ->contain(['Classlist', 'Parent'])
+            ->toArray();
+            $this->set(compact('students'));
+    
         if ($this->request->is(['post', 'put'])) {
             $data = $this->request->getData();
             $studentId = $data['student_id'];
-
-            $parent = $this->Parent->newEmptyEntity();
-            $parent = $this->Parent->patchEntity($parent, $data);
+            $existingParent = $this->Parent->find()
+                ->where(['student_id' => $studentId])
+                ->first();
+    
+            if ($existingParent) {
+                $parent = $this->Parent->patchEntity($existingParent, $data);
+            } else {
+                $parent = $this->Parent->newEmptyEntity();
+                $parent = $this->Parent->patchEntity($parent, $data);
+            }
+    
+            // Save parent data
             if ($this->Parent->save($parent)) {
                 $this->Flash->success(__('The parent information has been saved.'));
             } else {
                 $this->Flash->error(__('Unable to save the parent information.'));
             }
         }
-        
-     }
+    }
+    
+     public function getParentData($studentId)
+    {
+        $this->loadModel('Student');
+        $this->loadModel('Parent');
+            $student = $this->Student->get($studentId, [
+                'contain' => ['Parent']
+            ]);
+            
+            $parents = $student->parent;
+            
+            $this->set(compact('parents'));
+            $this->set('_serialize', ['parents']);
+    }
     }
 
 

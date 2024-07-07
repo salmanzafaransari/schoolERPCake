@@ -70,4 +70,8 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+    public function login()
+    {
+        $this->viewBuilder()->disableAutoLayout();
+    }
 }
