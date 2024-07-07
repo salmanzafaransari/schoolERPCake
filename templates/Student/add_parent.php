@@ -80,7 +80,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <?= $this->Form->create(null, ['class' => 'new-added-form']) ?>
+                                <?= $this->Form->create(null, ['class' => 'new-added-form', 'id'=> 'parentForm']) ?>
                                 <?= $this->Form->hidden('student_id', ['id' => 'student_id']) ?>
                                 <div class="form-group">
                                     <?= $this->Form->control('parent_type', ['type' => 'select', 'options' => ['Double Parents' => 'Double Parents', 'Single Parent' => 'Single Parent'], 'empty' => 'Select Parent Type', 'id' => 'parent-type', 'class' => 'select2']) ?>
@@ -200,16 +200,16 @@
                                 foreach ($parents as $parent) {
                                     
                                     if (isset($parent->parent_type) && $parent->parent_type === "Double Parents") {
-                                        echo "Mr. & Mrs " . $parent->father_name . " " . $parent->father_middle_name . " " . $parent->father_last_name;
+                                        echo "Mr. & Mrs " . $parent->father_name . " " . $parent->father_middle_name . " " . $parent->father_last_name . "<br/><button class='modal-trigger btn bg-warning text-light eid' data-toggle='modal' data-target='#large-modal' data-student-id='".$student->id."'>Edit Parent</button>";
                                         
                                     }
                                     if (isset($parent->parent_type) && $parent->parent_type === "Single Parent") {
                                            
                                             if($parent->guardian_gender == 'Male'){
-                                                echo "Mr." ." ". $parent->guardian_name . " " . $parent->guardian_middle_name . " " . $parent->guardian_last_name . "<br/><button type='button' class='modal-trigger btn bg-warning text-light sid' data-toggle='modal' data-target='#large-modal' data-student-id='".$student->id."'>Edit Parent</button>";
+                                                echo "Mr." ." ". $parent->guardian_name . " " . $parent->guardian_middle_name . " " . $parent->guardian_last_name . "<br/><button class='modal-trigger btn bg-warning text-light eid' data-toggle='modal' data-target='#large-modal' data-student-id='".$student->id."'>Edit Parent</button>";
                                             }
                                             if($parent->guardian_gender == 'Female'){
-                                                echo "Miss." ." ". $parent->guardian_name . " " . $parent->guardian_middle_name . " " . $parent->guardian_last_name . "<br/><button type='button' class='modal-trigger btn bg-warning text-light sid' data-toggle='modal' data-target='#large-modal' data-student-id='".$student->id."'>Edit Parent</button>";
+                                                echo "Miss." ." ". $parent->guardian_name . " " . $parent->guardian_middle_name . " " . $parent->guardian_last_name . "<br/><button class='modal-trigger btn bg-warning text-light eid' data-toggle='modal' data-target='#large-modal' data-student-id='".$student->id."'>Edit Parent</button>";
                                             }
         
                                     }
@@ -232,32 +232,87 @@
 <script src="<?= $this->Url->webroot('js/jquery.dataTables.min.js') ?>"></script>
 <script>
    $(document).ready(function() {
-        $('.modal-trigger').click(function() {
-            $('#father-details').hide('slow');
-            $('#mother-details').hide('slow');
-            $('#guardian-details').hide('slow');
-            var studentId = $(this).data('student-id');
-            $('#student_id').val(studentId);
+    function resetParentDetails() {
+        $('#father-details, #mother-details, #guardian-details').hide('slow');
+        $('#father-details input, #mother-details input, #guardian-details input').val('');
+    }
 
-        // Show/hide fields based on parent type selection
-        $('#parent-type').change(function() {
-            var parentType = $(this).val();
-            if (parentType == 'Double Parents') {
-                $('#father-details').show('slow');
-                $('#mother-details').show('slow');
-                $('#guardian-details').hide('slow');
-            } else if (parentType == 'Single Parent') {
-                $('#father-details').hide('slow');
-                $('#mother-details').hide('slow');
-                $('#guardian-details').show('slow');
-            } else {
-                $('#father-details').hide('slow');
-                $('#mother-details').hide('slow');
-                $('#guardian-details').hide('slow');
+    function setParentDetails(parentType) {
+        if (parentType == 'Double Parents') {
+            $('#father-details, #mother-details').show('slow');
+            $('#guardian-details').hide('slow').find('input').val('');
+        } else if (parentType == 'Single Parent') {
+            $('#father-details, #mother-details').hide('slow').find('input').val('');
+            $('#guardian-details').show('slow');
+        } else {
+            resetParentDetails();
+        }
+    }
+
+    $('.modal-trigger').click(function() {
+        $('.modal-title').text('Add Parents');
+        $('.footer-btn').text('Add Now');
+        resetParentDetails();
+        $('#student_id').val($(this).data('student-id'));
+    });
+    $('.sid').click(function(e){
+        e.preventDefault();
+        var ptype = $('#parent-type').val();
+        setParentDetails(ptype)
+    });
+
+    $('#parent-type').change(function() {
+        setParentDetails($(this).val());
+    });
+
+    $('.eid').click(function() {
+        var studentId = $('#student_id').val();
+        $('.modal-title').text('Edit Parents');
+        $('.footer-btn').text('Save Changes');
+
+        $.ajax({
+            url: '<?= $this->Url->build(['action' => 'getParentData']) ?>/' + studentId,
+            method: 'GET',
+            dataType: 'json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            },
+            success: function(response) {
+                var parent = response.parents[0];
+                var ptype = parent?.parent_type;
+
+                setParentDetails(ptype);
+
+                if (ptype == 'Single Parent') {
+                    $('#parent-type').val('Single Parent').trigger('change');
+                    $('#guardian-name').val(parent.guardian_name);
+                    $('#guardian-middle-name').val(parent.guardian_middle_name);
+                    $('#guardian-last-name').val(parent.guardian_last_name);
+                    $('#guardian-address').val(parent.guardian_address);
+                    $('#guardian-mobile').val(parent.guardian_mobile);
+                    $('#guardian-email').val(parent.guardian_email);
+                    $('#guardian-gender').val(parent.guardian_gender).trigger('change');
+                } else if (ptype == 'Double Parents') {
+                    $('#parent-type').val('Double Parents').trigger('change');
+                    $('#father-name').val(parent.father_name);
+                    $('#father-middle-name').val(parent.father_middle_name);
+                    $('#father-last-name').val(parent.father_last_name);
+                    $('#father-address').val(parent.father_address);
+                    $('#father-mobile').val(parent.father_mobile);
+                    $('#father-email').val(parent.father_email);
+                    $('#mother-name').val(parent.mother_name);
+                    $('#mother-middle-name').val(parent.mother_middle_name);
+                    $('#mother-last-name').val(parent.mother_last_name);
+                    $('#mother-address').val(parent.mother_address);
+                    $('#mother-mobile').val(parent.mother_mobile);
+                    $('#mother-email').val(parent.mother_email);
+                    $('#guardian-gender').val()
+                }
             }
         });
     });
 });
+
 </script>
 <script src="<?= $this->Url->webroot('js/jquery.scrollUp.min.js') ?>"></script>
 <?php $this->end() ?>
