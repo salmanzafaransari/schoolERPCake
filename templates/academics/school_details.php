@@ -90,12 +90,15 @@
                                     <?= $this->Form->control('school_code', ['label' => 'School code', 'class' => 'form-control']) ?>
                                    </div>
                                    <div class="col-xl-6 form-group">
+                                    <?= $this->Form->control('sequence_code', ['label' => 'Sequence code', 'class' => 'form-control']) ?>
+                                   </div>
+                                   <div class="col-xl-12 form-group">
                                     <?= $this->Form->control('affiliation_no', ['label' => 'Affiliation no', 'class' => 'form-control']) ?>
                                    </div>
-                                   <div class="col-xl-12 form-group">
+                                   <div class="col-xl-6 form-group">
                                     <?= $this->Form->control('address_line_1', ['label' => 'Address 1', 'class' => 'form-control']) ?>
                                    </div>
-                                   <div class="col-xl-12 form-group">
+                                   <div class="col-xl-6 form-group">
                                     <?= $this->Form->control('address_line_2', ['label' => 'Address 2', 'class' => 'form-control']) ?>
                                    </div>
                                    <div class="col-xl-4 form-group">
@@ -191,6 +194,10 @@
                                  <tr>
                                      <td>School Code:</td>
                                      <td class="font-medium text-dark-medium"><?php echo $schoolinfo['school_code']; ?> </td>
+                                 </tr>
+                                 <tr>
+                                     <td>Sequance Code:</td>
+                                     <td class="font-medium text-dark-medium"><?php echo $schoolinfo['sequence_code']; ?> </td>
                                  </tr>
                                  <tr>
                                   <td>Affliation No.:</td>

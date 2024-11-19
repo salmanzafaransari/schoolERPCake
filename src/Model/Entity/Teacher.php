@@ -3,7 +3,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Student extends Entity
+class Teacher extends Entity
 {
     protected $_virtual = ['full_name'];
     

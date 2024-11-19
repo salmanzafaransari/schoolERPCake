@@ -26,22 +26,27 @@
                 
             </div>
         </div>
-        <form class="mg-b-20">
+        <?= $this->Form->create(null, ['id' => 'searchForm', 'class' => 'mg-b-20']) ?>
             <div class="row gutters-8">
                 <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                    <input type="text" placeholder="Search by Roll ..." class="form-control">
+                    <?= $this->Form->select('search_parameter', [
+                        'student_id' => 'Admission No.',
+                        'student_name' => 'Student Name',
+                        'father_name' => 'Father Name',
+                        'class' => 'Class'
+                    ], ['id' => 'search-parameter', 'class' => 'select2']) ?>
                 </div>
-                <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                    <input type="text" placeholder="Search by Name ..." class="form-control">
+                <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group" id="search-value-container">
+                    <?= $this->Form->text('search_value', ['placeholder' => 'Enter value...', 'id' => 'search-value', 'class' => 'form-control']) ?>
                 </div>
-                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                    <input type="text" placeholder="Search by Class ..." class="form-control">
+                <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group d-none" id="class-section-container">
+                    <?= $this->Form->control('class_id', ['label' => false, 'class'=>'select2', 'options' => $classes]) ?>
                 </div>
                 <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                    <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
+                    <?= $this->Form->button('SEARCH', ['type' => 'submit', 'class' => 'fw-btn-fill btn-gradient-yellow']) ?>
                 </div>
             </div>
-        </form>
+        <?= $this->Form->end() ?>
         <!-- <div class="table-responsive">
             <table class="table display data-table text-nowrap">
             <thead>
@@ -172,7 +177,7 @@
                         </div>
                     </div>
                 </div>
-                <tbody>
+                <tbody id="loadSearch">
                     <?php 
                     $count =1; 
                     foreach ($students as $student): 
@@ -217,7 +222,7 @@
                             }
                             
                          ?>
-                        <td>TA-107 Newyork</td>
+                        <td><?php echo h($student->address_residential); ?></td>
                         <td><?php echo h($student->date_of_birth); ?></td>
                         
                     </tr>
@@ -232,6 +237,81 @@
 <script src="<?= $this->Url->webroot('js/jquery.dataTables.min.js') ?>"></script>
 <script>
    $(document).ready(function() {
+    $('#search-parameter').on('change', function() {
+        var selectedParam = $(this).val();
+        if (selectedParam === 'class') {
+            $('#search-value-container').addClass('d-none');
+            $('#class-section-container').removeClass('d-none');
+        } else {
+            $('#search-value-container').removeClass('d-none');
+            $('#class-section-container').addClass('d-none');
+            var placeholderText = 'Enter value...';
+            if (selectedParam === 'student_id') {
+                placeholderText = 'Enter Student ID...';
+            } else if (selectedParam === 'student_name') {
+                placeholderText = 'Enter Student Name...';
+            } else if (selectedParam === 'father_name') {
+                placeholderText = 'Enter Father Name...';
+            }
+            $('#search-value').attr('placeholder', placeholderText);
+        }
+    });
+
+    $('#searchForm').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '<?= $this->Url->build(['action' => 'search']) ?>',
+            method: 'GET',
+            dataType: 'json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            },
+            data: $(this).serialize(),
+            success: function(data) {
+                var tbody = $('#loadSearch');
+                tbody.empty(); // Clear existing data
+                var students = data.students;
+                
+                students.forEach(function(student) {
+                    var parentDetails = '';
+                    if (student.parent.length > 0) {
+                        student.parent.forEach(function(parent) {
+                            if (parent.parent_type === "Double Parents") {
+                                parentDetails += 'Mr. & Mrs. ' + parent.father_name + ' ' + parent.father_middle_name + ' ' + parent.father_last_name + '<br><button class="modal-trigger btn bg-warning text-light eid" data-toggle="modal" data-target="#large-modal" data-student-id="' + student.id + '">Edit Parent</button>';
+                            } else if (parent.parent_type === "Single Parent") {
+                                if (parent.guardian_gender === "Male") {
+                                    parentDetails += 'Mr. ' + parent.guardian_name + ' ' + parent.guardian_middle_name + ' ' + parent.guardian_last_name + '<br><button class="modal-trigger btn bg-warning text-light eid" data-toggle="modal" data-target="#large-modal" data-student-id="' + student.id + '">Edit Parent</button>';
+                                } else if (parent.guardian_gender === "Female") {
+                                    parentDetails += 'Miss. ' + parent.guardian_name + ' ' + parent.guardian_middle_name + ' ' + parent.guardian_last_name + '<br><button class="modal-trigger btn bg-warning text-light eid" data-toggle="modal" data-target="#large-modal" data-student-id="' + student.id + '">Edit Parent</button>';
+                                }
+                            }
+                        });
+                    } else {
+                        parentDetails = '<button type="button" class="modal-trigger btn bg-red text-light sid" data-toggle="modal" data-target="#large-modal" data-student-id="' + student.id + '">Add Parents</button>';
+                    }
+
+                    var address = student.address_residential ? student.address_residential : '';
+
+                    var row = `
+                        <tr>
+                            <td>${student.admission_id}</td>
+                            <td>${student.full_name}</td>
+                            <td align="center">${student.classlist.class_name}</td>
+                            <td align="center">${student.classlist.section}</td>
+                            <td align="center">${parentDetails}</td>
+                            <td>${address}</td>
+                            <td>${student.date_of_birth}</td>
+                        </tr>
+                    `;
+                    tbody.append(row);
+                });
+            },
+            error: function() {
+                alert('There was an error processing your request.');
+            }
+        });
+    });
+
     function resetParentDetails() {
         $('#father-details, #mother-details, #guardian-details').hide('slow');
         $('#father-details input, #mother-details input, #guardian-details input').val('');

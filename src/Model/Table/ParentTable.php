@@ -11,7 +11,7 @@ class ParentTable extends Table
 
         $this->setTable('parents');
         $this->setPrimaryKey('id');
-        // Define relationships if any
+        
         $this->belongsTo('Student', [
             'foreignKey' => 'student_id',
             'joinType' => 'INNER'

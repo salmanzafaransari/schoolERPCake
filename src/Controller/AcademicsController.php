@@ -9,7 +9,6 @@
      public function index(){
       
      }
-     
     public function addClass() {
         $this->loadModel('Classlist');
         $class = $this->Classlist->newEmptyEntity();
@@ -62,10 +61,8 @@
         if ($this->request->is('post')) {
             $this->loadModel('Schooldetail');
             $schoolinfo = $this->Schooldetail->get($id);
-            
             // Retrieve the path of the previously stored image
             $previousImage = $schoolinfo->school_logo;
-        
             // Delete the previous image from the server
             if (!empty($previousImage)) {
                 $imagePath = WWW_ROOT . 'img' . DS . $previousImage;
@@ -73,16 +70,13 @@
                     unlink($imagePath);
                 }
             }
-        
             // Process the new image
             $file = $this->request->getData('school_logo');
             $uploadPath = WWW_ROOT . 'img';
             $filename = time() . '_' . $file->getClientFilename();
             $file->moveTo($uploadPath . DS . $filename);
-            
             // Update the entity with the new image filename
             $schoolinfo->school_logo = $filename;
-            
             // Save the entity
             if ($this->Schooldetail->save($schoolinfo)) {
                 $this->Flash->success(__('School logo Updated Successfully'));
@@ -95,6 +89,57 @@
         $this->set(compact('schoolinfo'));
         
     }
+
+    public function subjects(){
+        $this->loadModel('Subject');
+        $subjects = $this->Subject->find()
+        ->toArray();
+        $subject = $this->Subject->newEmptyEntity();
+        $this->set(compact('subjects'));
+
+        if ($this->request->is(['post'])) {
+            $subject = $this->Subject->patchEntity($subject, $this->request->getData());
+    
+            if ($this->Subject->save($subject)) {
+                $this->Flash->success(__('Subject Added Successfully'));
+                return $this->redirect(['action' => 'subjects']);
+            } else {
+                $this->Flash->error(__('The subject could not be saved. Please, try again.'));
+            }
+         }
+    }
+
+    public function toggleStatusSubject($id = null) {
+        $this->loadModel('Subject');
+        $this->request->allowMethod(['post']);
+        $subject = $this->Subject->get($id);
+        $subject->status = $subject->status == 1 ? 0 : 1; // Toggle status
+        if ($this->Subject->save($subject)) {
+            $this->Flash->success(__('The Subject status has been updated.'));
+        } else {
+            $this->Flash->error(__('The Subject status could not be updated. Please, try again.'));
+        }
+        return $this->redirect(['action' => 'subjects']);
+    }
+    public function editSubject()
+    {
+        $this->request->allowMethod(['post', 'put']); 
+        $this->loadModel('Subject');
+
+        $data = $this->request->getData();
+
+        $subject = $this->Subject->get($data['id']); // Fetch the subject by ID
+        $subject = $this->Subject->patchEntity($subject, $data);
+
+        if ($this->Subject->save($subject)) {
+            $this->Flash->success(__('The subject has been updated.'));
+        } else {
+            $this->Flash->error(__('Unable to update the subject. Please try again.'));
+        }
+
+        return $this->redirect(['action' => 'subjects']);
+    }
+
  
 
   }
