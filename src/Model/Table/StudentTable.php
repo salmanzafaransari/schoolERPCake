@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
+use Cake\ORM\Entity;
 
 class StudentTable extends Table
 {
@@ -14,6 +15,10 @@ class StudentTable extends Table
             'foreignKey' => 'class_id',
             'joinType' => 'INNER'
         ]);
+        // $this->belongsTo('Parent', [
+        //     'foreignKey' => 'student_id',
+        //     'joinType' => 'INNER'
+        // ]);
         $this->hasMany('Parent', [
             'foreignKey' => 'student_id',
             'joinType' => 'INNER'
