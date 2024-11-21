@@ -1,18 +1,18 @@
-<?php $this->start('title') ?>Add Class<?php $this->end() ?>
-<?php $this->start('activeAcademics') ?>sub-group-active<?php $this->end() ?>
-<?php $this->start('activeSubject') ?>menu-active<?php $this->end() ?>
+<?php $this->start('title') ?>Subjetcs<?php $this->end() ?>
+<?php $this->start('activeSubject') ?>sub-group-active<?php $this->end() ?>
+<?php $this->start('activeSubAdd') ?>menu-active<?php $this->end() ?>
 <?php $this->start('stylescss') ?>
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/select2.min.css') ?>">
 <link rel="stylesheet" href="<?= $this->Url->webroot('css/datepicker.min.css') ?>">
 <?php $this->end() ?>
 <!-- Breadcubs Area Start Here -->
 <div class="breadcrumbs-area">
-    <h3>Academics</h3>
+    <h3>Subjects</h3>
     <ul>
         <li>
             <a href="index.html">Home</a>
         </li>
-        <li>Subjects</li>
+        <li>Subject Add / Edit</li>
     </ul>
 </div>
 <!-- Breadcubs Area End Here -->

@@ -46,21 +46,21 @@
         </div>
         <div class="single-info-details">
             <div class="item-img">
-             <?php
-               if(isset($teacher['photo'])&& !empty($teacher['photo'])){
-                $image = $teacher['photo'];
-                echo $this->Html->image('/img/'.$teacher['photo'], [ 'alt'=> "Teacher"]);
-                echo "<button type='button' class='centered-button btn font-normal radius-4 text-light btn-gradient-yellow' id='modalpop'>Change Photo</button>";
+                <?php
+                if(isset($teacher['photo'])&& !empty($teacher['photo'])){
+                    $image = $teacher['photo'];
+                    echo $this->Html->image('/img/'.$teacher['photo'], [ 'alt'=> "Teacher"]);
+                    echo "<button type='button' class='centered-button btn font-normal radius-4 text-light btn-gradient-yellow' id='modalpop'>Change Photo</button>";
 
-               }else {
-                // echo '<img src="' . str_replace(WWW_ROOT, '/', WWW_ROOT . 'img/figure/teacher.jpg') . '" alt="default">';
-                echo $this->Html->image('/img/figure/teacher.jpg', [ 'alt'=> "Defualt"]);
-                // echo $this->Html->link('Upload Photo', '#', ['class' => 'centered-button btn-fill-lg font-normal radius-4 text-light btn-gradient-yellow']);
-                echo "<button type='button' class='centered-button btn font-normal radius-4 text-light btn-gradient-yellow' id='modalpop'>Upload Photo</button>";
+                }else {
+                    // echo '<img src="' . str_replace(WWW_ROOT, '/', WWW_ROOT . 'img/figure/teacher.jpg') . '" alt="default">';
+                    echo $this->Html->image('/img/figure/teacher.jpg', [ 'alt'=> "Defualt"]);
+                    // echo $this->Html->link('Upload Photo', '#', ['class' => 'centered-button btn-fill-lg font-normal radius-4 text-light btn-gradient-yellow']);
+                    echo "<button type='button' class='centered-button btn font-normal radius-4 text-light btn-gradient-yellow' id='modalpop'>Upload Photo</button>";
 
-            }
-            
-             ?>
+                }
+                
+                ?>
              
               <div class="modal fade" id="standard-modal" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog" role="document">

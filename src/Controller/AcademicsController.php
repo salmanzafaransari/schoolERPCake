@@ -90,56 +90,6 @@
         
     }
 
-    public function subjects(){
-        $this->loadModel('Subject');
-        $subjects = $this->Subject->find()
-        ->toArray();
-        $subject = $this->Subject->newEmptyEntity();
-        $this->set(compact('subjects'));
-
-        if ($this->request->is(['post'])) {
-            $subject = $this->Subject->patchEntity($subject, $this->request->getData());
-    
-            if ($this->Subject->save($subject)) {
-                $this->Flash->success(__('Subject Added Successfully'));
-                return $this->redirect(['action' => 'subjects']);
-            } else {
-                $this->Flash->error(__('The subject could not be saved. Please, try again.'));
-            }
-         }
-    }
-
-    public function toggleStatusSubject($id = null) {
-        $this->loadModel('Subject');
-        $this->request->allowMethod(['post']);
-        $subject = $this->Subject->get($id);
-        $subject->status = $subject->status == 1 ? 0 : 1; // Toggle status
-        if ($this->Subject->save($subject)) {
-            $this->Flash->success(__('The Subject status has been updated.'));
-        } else {
-            $this->Flash->error(__('The Subject status could not be updated. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'subjects']);
-    }
-    public function editSubject()
-    {
-        $this->request->allowMethod(['post', 'put']); 
-        $this->loadModel('Subject');
-
-        $data = $this->request->getData();
-
-        $subject = $this->Subject->get($data['id']); // Fetch the subject by ID
-        $subject = $this->Subject->patchEntity($subject, $data);
-
-        if ($this->Subject->save($subject)) {
-            $this->Flash->success(__('The subject has been updated.'));
-        } else {
-            $this->Flash->error(__('Unable to update the subject. Please try again.'));
-        }
-
-        return $this->redirect(['action' => 'subjects']);
-    }
-
  
 
   }

@@ -10,5 +10,12 @@ class TeacherTable extends Table
         parent::initialize($config);
 
         $this->setTable('teachers'); // Set the table name explicitly
+        $this->setPrimaryKey('id');   // Define the primary key as 'id'
+
+        // Define the hasMany relationship to Subjectteacher
+        $this->hasMany('Subjectteacher', [
+            'foreignKey' => 'teacher_id', // This links 'teacher_id' in Subjectteacher to 'id' in Teacher
+        ]);
+
     }
 }
