@@ -119,7 +119,7 @@ $html = new HtmlHelper(new \Cake\View\View());
             </li>
             <li class="nav-item sidebar-nav-item">
                 <a href="#" class="nav-link"><i
-                        class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Class Manage</span></a>
+                        class="flaticon-maths-class-materials-cross-of-a-pencil-and-a-ruler"></i><span>Manage Class</span></a>
                 <ul class="nav sub-group-menu  <?= $this->fetch('activeClasses') ?>">
                     <li class="nav-item">
                         <?php echo $html->link('<i class="fas fa-angle-right"></i>Classes Subjects', ['controller' => 'Classes', 'action' => 'addSubjects'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSubClass')]); ?>
@@ -129,9 +129,19 @@ $html = new HtmlHelper(new \Cake\View\View());
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="all-subject.html" class="nav-link"><i
-                        class="flaticon-open-book"></i><span>Subject</span></a>
+            <li class="nav-item sidebar-nav-item">
+            <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Manage Subjects</span></a>
+                <ul class="nav sub-group-menu  <?= $this->fetch('activeSubject') ?>">
+                    <li class="nav-item">
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Subject Teacher', ['controller' => 'Subject', 'action' => 'subjectTeacher'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSubTea')]); ?>
+                    </li>
+                    <li class="nav-item">
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Subjects Timing', ['controller' => 'Subject', 'action' => 'subjectTime'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSubTim')]); ?>
+                    </li>
+                    <li class="nav-item">
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Subject Add / Edit', ['controller' => 'Subject', 'action' => 'subjectAdd'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSubAdd')]); ?>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a href="class-routine.html" class="nav-link"><i class="flaticon-calendar"></i><span>Class
@@ -208,7 +218,10 @@ $html = new HtmlHelper(new \Cake\View\View());
                         <?php echo $html->link('<i class="fas fa-angle-right"></i>Classes', ['controller' => 'Academics', 'action' => 'addClass'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeClass')]); ?>
                     </li>
                     <li class="nav-item">
-                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Subjects', ['controller' => 'Academics', 'action' => 'subjects'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSubject')]); ?>
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Shift', ['controller' => 'Academics', 'action' => 'shift'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeShift')]); ?>
+                    </li>
+                    <li class="nav-item">
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Weekly Class Schedule', ['controller' => 'Academics', 'action' => 'weeklyClassSchedule'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSchedule')]); ?>
                     </li>
                 </ul>
             </li>
