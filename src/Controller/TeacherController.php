@@ -138,6 +138,7 @@
             // Save the entity
             if ($this->Teacher->save($teacher)) {
                 $this->Flash->success(__('Teacher Image Updated Successfully'));
+                return $this->redirect(['action' => 'allTeacher']);
             } else {
                 $this->Flash->error(__('Failed to update Teacher Image'));
             }

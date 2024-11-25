@@ -91,31 +91,7 @@
 
         public function profile(){
         }
-        public function search(){
-                $this->request->allowMethod(['get']);
-                $this->loadModel('Student');
-                $parameter = $this->request->getQuery('search_parameter');
-                $value = $this->request->getQuery('search_value');
-                $classId = $this->request->getQuery('class_id');
-                $query = $this->Student->find()->contain(['Classlist', 'Parent']);
-                if ($parameter === 'student_id' && !empty($value)) {
-                    $query->where(['Student.admission_id' => $value]);
-                } elseif ($parameter === 'student_name' && !empty($value)) {
-                    $query->where(['OR' => [
-                        'Student.first_name LIKE' => '%' . $value . '%',
-                    ]]);
-                } elseif ($parameter === 'father_name' && !empty($value)) {
-                    $query->matching('Parent', function ($q) use ($value) {
-                        return $q->where(['Parent.father_name LIKE' => '%' . $value . '%']);
-                    });
-                } elseif ($parameter === 'class' && !empty($classId)) {
-                    $query->where(['Student.class_id' => $classId]);
-                }
-                $students = $query->all();
-                $this->set(compact('students'));
-                $this->set('_serialize', ['students']);
-                $this->viewBuilder()->setLayout('ajax');
-        }
+        
         public function studentForm($studentId = null) {
             $this->loadModel('Classlist');
             $this->loadModel('Student');
@@ -338,6 +314,31 @@
             // debug($students);
             // die();
         }
+        public function search(){
+            $this->request->allowMethod(['get']);
+            $this->loadModel('Student');
+            $parameter = $this->request->getQuery('search_parameter');
+            $value = $this->request->getQuery('search_value');
+            $classId = $this->request->getQuery('class_id');
+            $query = $this->Student->find()->contain(['Classlist', 'Parent']);
+            if ($parameter === 'student_id' && !empty($value)) {
+                $query->where(['Student.admission_id' => $value]);
+            } elseif ($parameter === 'student_name' && !empty($value)) {
+                $query->where(['OR' => [
+                    'Student.first_name LIKE' => '%' . $value . '%',
+                ]]);
+            } elseif ($parameter === 'father_name' && !empty($value)) {
+                $query->matching('Parent', function ($q) use ($value) {
+                    return $q->where(['Parent.father_name LIKE' => '%' . $value . '%']);
+                });
+            } elseif ($parameter === 'class' && !empty($classId)) {
+                $query->where(['Student.class_id' => $classId]);
+            }
+            $students = $query->all();
+            $this->set(compact('students'));
+            $this->set('_serialize', ['students']);
+            $this->viewBuilder()->setLayout('ajax');
+    }
         public function addParent(){
             $this->loadModel('Student');
             $this->loadModel('Parent');

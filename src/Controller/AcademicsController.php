@@ -90,6 +90,60 @@
         
     }
 
+    public function shift($id = null) {
+        $this->loadModel('Shift');
+    
+        // Check if it's an "edit" action or "add" action
+        if ($id) {
+            // Edit action
+            $shift = $this->Shift->get($id); // Fetch existing shift entity
+        } else {
+            // Add action (no $id, so create a new empty entity)
+            $shift = $this->Shift->newEmptyEntity();
+        }
+    
+        if ($this->request->is(['post', 'put'])) {
+            // Patch the entity with the form data
+            $shift = $this->Shift->patchEntity($shift, $this->request->getData());
+    
+            // Save the entity and handle success or failure
+            if ($this->Shift->save($shift)) {
+                if ($id) {
+                    // If $id exists, it's an edit operation
+                    $this->Flash->success(__('The shift has been updated.'));
+                } else {
+                    // If $id doesn't exist, it's an add operation
+                    $this->Flash->success(__('The shift has been added successfully.'));
+                }
+                return $this->redirect(['action' => 'shift']); // Redirect back to the shift list
+            } else {
+                // If saving failed, display an error
+                $this->Flash->error(__('Unable to save the shift. Please try again.'));
+            }
+        }
+    
+        // Fetch all shifts with active status
+        $shifts = $this->Shift->find('all');
+        $this->set(compact('shifts', 'shift')); // Pass both shifts list and the current shift entity to the view
+    }
+    public function toggleStatusShift($id = null) {
+        $this->loadModel('Shift');
+        $this->request->allowMethod(['post']);
+        $shift = $this->Shift->get($id);
+        $shift->status = $shift->status == 1 ? 0 : 1; // Toggle status
+        if ($this->Shift->save($shift)) {
+            $this->Flash->success(__('The Shift status has been updated.'));
+        } else {
+            $this->Flash->error(__('The Shift status could not be updated. Please, try again.'));
+        }
+        return $this->redirect(['action' => 'shift']);
+    }
+    
+    public function weeklyClassSchedule(){
+        
+    }
+    
+
  
 
   }

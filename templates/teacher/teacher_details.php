@@ -54,6 +54,7 @@
 
                 }else {
                     // echo '<img src="' . str_replace(WWW_ROOT, '/', WWW_ROOT . 'img/figure/teacher.jpg') . '" alt="default">';
+                    $image = 'figure/teacher.jpg';
                     echo $this->Html->image('/img/figure/teacher.jpg', [ 'alt'=> "Defualt"]);
                     // echo $this->Html->link('Upload Photo', '#', ['class' => 'centered-button btn-fill-lg font-normal radius-4 text-light btn-gradient-yellow']);
                     echo "<button type='button' class='centered-button btn font-normal radius-4 text-light btn-gradient-yellow' id='modalpop'>Upload Photo</button>";

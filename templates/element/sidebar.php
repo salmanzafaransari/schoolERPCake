@@ -218,7 +218,10 @@ $html = new HtmlHelper(new \Cake\View\View());
                         <?php echo $html->link('<i class="fas fa-angle-right"></i>Classes', ['controller' => 'Academics', 'action' => 'addClass'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeClass')]); ?>
                     </li>
                     <li class="nav-item">
-                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Subjects', ['controller' => 'Academics', 'action' => 'subjects'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSubject')]); ?>
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Shift', ['controller' => 'Academics', 'action' => 'shift'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeShift')]); ?>
+                    </li>
+                    <li class="nav-item">
+                        <?php echo $html->link('<i class="fas fa-angle-right"></i>Weekly Class Schedule', ['controller' => 'Academics', 'action' => 'weeklyClassSchedule'], ['escape' => false, 'class' => 'nav-link '.$this->fetch('activeSchedule')]); ?>
                     </li>
                 </ul>
             </li>
